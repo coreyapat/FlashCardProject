@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('Flash/', views.FlashCardsList.as_view()),
+    path('id/', )
 ]
