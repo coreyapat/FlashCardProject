@@ -6,3 +6,9 @@ class FlashCardsSerializer(serializers.ModelSerializer):
     class Meta:
         model = FlashCards
         fields = ['id', 'front', 'back']
+
+
+class CollectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CollectionPoint
+        fields = ['id', 'name']
