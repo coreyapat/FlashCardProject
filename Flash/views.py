@@ -1,7 +1,7 @@
 from django.http import Http404
 from django.shortcuts import render
-from .models import FlashCards, CollectionPoint
-from .serializers import FlashCardsSerializer
+from .models import CollectionPoint, FlashCards
+from .serializers import FlashCardsSerializer, CollectionSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,11 +10,10 @@ from rest_framework import status
 # Create your views here.
 class FlashCardsList(APIView):
 
-    def get(self, FlashCards):
+    def get(self, request):
         flashcards = FlashCards.objects.all()
         serializer = FlashCardsSerializer(flashcards, many=True)
         return Response(serializer.data)
-
 
     def post(self, request):
         serializer = FlashCardsSerializer(data=request.data)
@@ -34,5 +33,5 @@ class FlashIdList(APIView):
 
     def get(self, request, cardId):
         card_id = self.filter_by_id(cardId)
-        serializer = FlashCardsSerializer(card_id, many=True)
+        serializer = CollectionSerializer(card_id, many=True)
         return Response(serializer.data)
