@@ -11,8 +11,8 @@ from rest_framework import status
 class FlashCardsList(APIView):
 
     def get(self, request):
-        flashcards = FlashCards.objects.all()
-        serializer = FlashCardsSerializer(flashcards, many=True)
+        flashcards = CollectionPoint.objects.all()
+        serializer = CollectionSerializer(flashcards, many=True)
         return Response(serializer.data)
 
     def post(self, request):
