@@ -23,15 +23,26 @@ class FlashCardsList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class FlashIdList(APIView):
 
-    def filter_by_id(self, cardId):
+    def filter_by_id(self, card):
         try:
-            return FlashCards.objects.filter(cardId=cardId)
-        except cardId.DoesNotExist:
+            return FlashCards.objects.filter(card=card)
+        except card.DoesNotExist:
             raise Http404
 
-    def get(self, request, cardId):
-        card_id = self.filter_by_id(cardId)
+    def get(self, request, card):
+        card_id = self.filter_by_id(card)
         serializer = CollectionSerializer(card_id, many=True)
         return Response(serializer.data)
+
+
+class CreateCard(APIView):
+
+    def post(self, request):
+        serializer = FlashCardsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

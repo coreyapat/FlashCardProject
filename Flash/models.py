@@ -11,9 +11,9 @@ class CollectionPoint(models.Model):
 
 
 class FlashCards(models.Model):
-    cardId = models.ForeignKey(CollectionPoint, on_delete=models.CASCADE)
-    front = models.CharField(max_length=100)
-    back = models.CharField(max_length=100)
+    front = models.TextField(max_length=200)
+    back = models.TextField(max_length=200)
+    card = models.ForeignKey(CollectionPoint, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.cardId
+        return self.card
